@@ -141,7 +141,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		// Only keep this last reading if it is fresh - less than 5 minutes old
 
         Location location = mLocationManager.getLastKnownLocation(mLocationManager.NETWORK_PROVIDER);
-        if (ageInMilliseconds(location) < FIVE_MINS) {
+        if (location != null && ageInMilliseconds(location) < FIVE_MINS) {
             mLastLocationReading = location;
         } else {
             mLastLocationReading = null;
@@ -191,7 +191,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
         } else if (place==null) {
             Toast.makeText(getApplicationContext(),"PlaceBadge could not be acquired",
                     Toast.LENGTH_SHORT).show();
-        } else if (place.getCountryName()==null) {
+        } else if (place.getCountryName()=="") {
             Toast.makeText(getApplicationContext(),"There is no country at this location",
                     Toast.LENGTH_SHORT).show();
         } else {
