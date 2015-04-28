@@ -55,6 +55,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
         LayoutInflater inflater = getLayoutInflater();
         View footerView = inflater.inflate(R.layout.footer_view, null);
         placesListView.addFooterView(footerView);
+        footerView.setEnabled(false);
 
 		// TODOx - footerView must respond to user clicks, handling 3 cases:
 
@@ -85,7 +86,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
                             "You already have this location badge",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    PlaceDownloaderTask pdt = new PlaceDownloaderTask(PlaceViewActivity.this, false);
+                    PlaceDownloaderTask pdt = new PlaceDownloaderTask(PlaceViewActivity.this, true);
                     pdt.execute(mLastLocationReading);
                 }
             }
@@ -111,6 +112,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
         // current location.
         if (mLastLocationReading == null) {
             mLastLocationReading = currentLocation;
+            findViewById(R.id.footer).setEnabled(true);
         } else if (ageInMilliseconds(currentLocation) > ageInMilliseconds(mLastLocationReading)) {
             return;
         } else {
